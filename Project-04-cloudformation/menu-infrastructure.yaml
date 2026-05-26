@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Restaurant Menu EC2 Infrastructure
+
+Resources:
+  MenuSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP HTTPS and SSH
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  MenuWebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t3.micro
+      ImageId: ami-05cf1e9f73fbad2e2
+      SecurityGroups:
+        - !Ref MenuSecurityGroup
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          apt update -y
+          apt install nginx -y
+          systemctl start nginx
+          systemctl enable nginx
+      Tags:
+        - Key: Name
+          Value: menu-web-server
+        - Key: Project
+          Value: menu-restaurant
