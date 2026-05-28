@@ -17,3 +17,4 @@ CloudFormation YAML template instead of manual console clicks.
 
 ## Challenges & Solutions
 - YAML indentation must be exact or the stack fails
+- Learning the difference between manual deployments and automated IaC deployments
