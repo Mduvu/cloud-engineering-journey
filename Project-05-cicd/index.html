@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fine Dining Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F5E9C8;
+    --cream: #FAF6EF;
+    --dark: #1A1410;
+    --deep: #0D0B08;
+    --text: #3A2E22;
+    --muted: #7A6A58;
+    --divider: #D4B87A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--deep);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+  }
+
+  .page {
+    width: 100%;
+    max-width: 720px;
+    background: var(--cream);
+    position: relative;
+    padding: 60px 55px 70px;
+    box-shadow:
+      0 0 0 1px rgba(201,168,76,0.3),
+      0 0 0 8px rgba(201,168,76,0.08),
+      0 30px 80px rgba(0,0,0,0.6),
+      0 0 120px rgba(201,168,76,0.05);
+    animation: fadeIn 1.2s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Corner ornaments */
+  .page::before, .page::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.5;
+  }
+  .page::before { top: 18px; left: 18px; border-width: 1px 0 0 1px; }
+  .page::after  { bottom: 18px; right: 18px; border-width: 0 1px 1px 0; }
+
+  .corner-tr, .corner-bl {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.5;
+  }
+  .corner-tr { top: 18px; right: 18px; border-width: 1px 1px 0 0; }
+  .corner-bl { bottom: 18px; left: 18px; border-width: 0 0 1px 1px; }
+
+  /* Stars */
+  .stars {
+    text-align: center;
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 12px;
+    margin-bottom: 18px;
+    opacity: 0.85;
+    animation: fadeIn 1.4s ease 0.2s both;
+  }
+
+  /* Restaurant name */
+  .restaurant-name {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 600;
+    color: var(--dark);
+    text-align: center;
+    letter-spacing: 0.15em;
+    line-height: 1.2;
+    animation: fadeIn 1.4s ease 0.3s both;
+  }
+
+  .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--gold);
+    text-align: center;
+    letter-spacing: 0.12em;
+    margin-top: 8px;
+    animation: fadeIn 1.4s ease 0.4s both;
+  }
+
+  /* Main ornamental divider */
+  .main-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 28px 0;
+    animation: fadeIn 1.4s ease 0.5s both;
+  }
+  .main-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--divider), transparent);
+  }
+  .main-divider .diamond {
+    width: 7px;
+    height: 7px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+  .main-divider .diamond-sm {
+    width: 4px;
+    height: 4px;
+    background: var(--gold-light);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  /* Section title (FOOD LOT / DRINKS) */
+  .section {
+    margin-bottom: 40px;
+    animation: fadeIn 1.4s ease 0.6s both;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .section-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 400;
+    color: var(--dark);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .sub-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 60px 0;
+  }
+  .sub-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent);
+  }
+  .sub-divider .dot {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+
+  /* Category (Starter / Main / Cocktails) */
+  .category {
+    margin-bottom: 32px;
+  }
+
+  .category-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 8.5px;
+    font-weight: 400;
+    letter-spacing: 0.4em;
+    color: var(--muted);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .category-title::before,
+  .category-title::after {
+    content: '—';
+    margin: 0 10px;
+    color: var(--divider);
+  }
+
+  /* Dish card */
+  .dish {
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    position: relative;
+  }
+  .dish:last-child { border-bottom: none; }
+
+  .dish-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .dish-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(19px, 3vw, 23px);
+    font-weight: 600;
+    color: var(--dark);
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+  }
+
+  .dish-dots {
+    flex: 1;
+    border-bottom: 1px dotted rgba(201,168,76,0.35);
+    margin-bottom: 3px;
+    min-width: 20px;
+  }
+
+  .dish-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--gold);
+    white-space: nowrap;
+    font-style: italic;
+  }
+
+  .dish-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    margin-bottom: 7px;
+  }
+
+  .dish-description {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  .dish-description em {
+    color: var(--text);
+    font-style: italic;
+  }
+
+  /* Highlight tag */
+  .tag {
+    display: inline-block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 7.5px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 2px 8px;
+    margin-bottom: 8px;
+  }
+
+  /* Cocktails row */
+  .cocktail-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    animation: fadeIn 1.4s ease 0.9s both;
+  }
+  .footer-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+  }
+  .footer-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    margin-top: 14px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .page { padding: 45px 28px 55px; }
+    .sub-divider { margin: 12px 20px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="corner-tr"></div>
+  <div class="corner-bl"></div>
+
+  <div class="stars">✦ ✦ ✦ ✦ ✦</div>
+
+  <h1 class="restaurant-name">La Maison d'Or</h1>
+  <p class="tagline">An Experience Beyond the Plate</p>
+
+  <div class="main-divider">
+    <div class="line"></div>
+    <div class="diamond-sm"></div>
+    <div class="diamond"></div>
+    <div class="diamond-sm"></div>
+    <div class="line"></div>
+  </div>
+
+  <!-- ===== FOOD LOT ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">Curated Selection</span>
+      <div class="section-title">Food Lot</div>
+      <div class="sub-divider">
+        <div class="line"></div>
+        <div class="dot"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <!-- Starter -->
+    <div class="category">
+      <div class="category-title">Starter</div>
+
+      <div class="dish">
+        <div class="tag">Chef's Opening</div>
+        <div class="dish-header">
+          <span class="dish-name">Hake Baby Wedge</span>
+          <span class="dish-dots"></span>
+          <span class="dish-price">R 285</span>
+        </div>
+        <div class="dish-subtitle">Crispy Baby Potato · Flaked Hake · Sweet Cream Sauce</div>
+        <p class="dish-description">
+          Tender baby potatoes, crisped to a golden shell and generously filled with delicately seasoned flaked <em>hake</em> — finished with a silken, sweet creamy sauce that melts on the palate.
+        </p>
+      </div>
+    </div>
+
+    <!-- Main Dish -->
+    <div class="category">
+      <div class="category-title">Main Dish</div>
+
+      <div class="dish">
+        <div class="tag">Signature Creation</div>
+        <div class="dish-header">
+          <span class="dish-name">Xi-Aka Munti</span>
+          <span class="dish-dots"></span>
+          <span class="dish-price">R 490</span>
+        </div>
+        <div class="dish-subtitle">Baked Mash · Sweet Potato · Spiced Vegetable Gravy · Natswo Sauce</div>
+        <p class="dish-description">
+          A proud creation of the house — <em>baked mashed sweet potato</em> and creamy regular potato, layered and topped with a generous crown of melted cheese. Finished with a <em>sticky, spiced vegetable gravy</em> that carries warmth and depth, draped in our house-made <em>Natswo sauce</em>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-divider">
+    <div class="line"></div>
+    <div class="diamond-sm"></div>
+    <div class="diamond"></div>
+    <div class="diamond-sm"></div>
+    <div class="line"></div>
+  </div>
+
+  <!-- ===== DRINKS ===== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label">Libations & Spirits</span>
+      <div class="section-title">Drinks</div>
+      <div class="sub-divider">
+        <div class="line"></div>
+        <div class="dot"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <!-- Cocktails -->
+    <div class="category">
+      <div class="category-title">Cocktails</div>
+
+      <div class="cocktail-grid">
+
+        <div class="dish">
+          <div class="dish-header">
+            <span class="dish-name">Explosive Espresso</span>
+            <span class="dish-dots"></span>
+            <span class="dish-price">R 165</span>
+          </div>
+          <p class="dish-description">
+            A bold collision of <em>cold brew espresso</em>, velvety liqueur, and a charged aromatic finish — designed to ignite the senses from the very first sip.
+          </p>
+        </div>
+
+        <div class="dish">
+          <div class="dish-header">
+            <span class="dish-name">Sparkling Strawberry Brut</span>
+            <span class="dish-dots"></span>
+            <span class="dish-price">R 185</span>
+          </div>
+          <p class="dish-description">
+            Fresh <em>strawberry essence</em> lifted by the effervescence of fine brut — bright, celebratory and elegantly dry with a blush-pink finish.
+          </p>
+        </div>
+
+        <div class="dish">
+          <div class="dish-header">
+            <span class="dish-name">Henny Thing Nice</span>
+            <span class="dish-dots"></span>
+            <span class="dish-price">R 195</span>
+          </div>
+          <p class="dish-description">
+            Smooth <em>Hennessy cognac</em> kissed with honey, citrus, and a whisper of spice — the kind of drink that makes everything around it feel just a little more golden.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="main-divider">
+    <div class="line"></div>
+    <div class="diamond-sm"></div>
+    <div class="diamond"></div>
+    <div class="diamond-sm"></div>
+    <div class="line"></div>
+  </div>
+
+  <div class="footer">
+    <p class="footer-text">
+      Please inform your server of any dietary requirements or allergies.<br>
+      Our kitchen handles nuts, dairy, gluten, and shellfish.
+    </p>
+    <p class="footer-logo">✦ &nbsp; LA MAISON D'OR &nbsp; ✦</p>
+  </div>
+
+</div>
+
+</body>
+</html>
